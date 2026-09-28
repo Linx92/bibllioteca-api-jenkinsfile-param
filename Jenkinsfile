@@ -14,7 +14,7 @@ pipeline {
             description: "¿Desea desplegar en DEV?"
         )
 
-        booleamParaam(
+        booleamParam(
             name: "RUN_TESTS",
             defaultValue: false,
             description: "¿Desea ejecutar pruebas unitarias?"
