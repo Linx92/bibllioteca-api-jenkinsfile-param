@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    parameteres{
+    parameters {
         string(
             name:"BRANCH_NAME",
             defaultValue: "main",
