@@ -13,6 +13,18 @@ pipeline {
             defaultValue: false,
             description: "¿Desea desplegar en DEV?"
         )
+
+        booleamParaam(
+            name: "RUN_TESTS",
+            defaultValue: false,
+            description: "¿Desea ejecutar pruebas unitarias?"
+        )
+
+        booleanParam(
+            name: "DEPLOY_PRD",
+            defaultValue: false,
+            description: "¿Desea desplegar en PRD?"
+        )
     }
 
     environment {
@@ -41,6 +53,17 @@ pipeline {
             steps {
                 script {
                     bat 'dotnet build --configuration Release'
+                }
+            }
+        }
+
+        stage ('Ejecutar pruebas unitarias'){
+            when{
+                expression{return params.RUN_TESTS}
+            }
+            steps {
+                script {
+                    bat 'dotnet test --configuration Release'
                 }
             }
         }
