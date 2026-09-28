@@ -7,6 +7,12 @@ pipeline {
             defaultValue: "main",
             description: "Nombre de la rama a compilar"
         )
+
+        booleanParam(
+            name: "COMPILE",
+            defaultValue: false,
+            description: "¿Desea desplegar en DEV?"
+        )
     }
 
     environment {
@@ -29,6 +35,9 @@ pipeline {
         }
     
         stage ('Compilar'){
+            when{
+                expression{return params.COMPILE}
+            }
             steps {
                 script {
                     bat 'dotnet build --configuration Release'
@@ -37,18 +46,12 @@ pipeline {
         }
 
         stage ('Deploy DEV') {
-            when {
-                branch 'develop'
-            }
             steps{
                 echo 'Despliegue Dev'
             }
         }
         
         stage ('Deploy PROD') {
-            when {
-                branch 'main'
-            }
             steps{
                 input message: '¿Autoriza la ejecución?'
                 echo 'Despliegue PROD'
