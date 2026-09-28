@@ -1,6 +1,14 @@
 pipeline {
-    agent { label 'windows'}
-    
+    agent any
+
+    parameteres{
+        string(
+            name:"BRANCH_NAME",
+            defaultValue: "main",
+            description: "Nombre de la rama a compilar"
+        )
+    }
+
     environment {
         DN_VERSION = "9.0"
     }
@@ -8,10 +16,9 @@ pipeline {
     stages {
         stage ('Clonar desde Github'){
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '36d9b6ee-ebae-4d35-b11a-d6ada6a1d4a5', url: 'https://github.com/Linx92/biblioteca-api-jenkins.git']])
+                checkout scmGit(branches: [[name: "*/${params.BRANCH_NAME}"]], extensions: [], userRemoteConfigs: [[credentialsId: '36d9b6ee-ebae-4d35-b11a-d6ada6a1d4a5', url: 'https://github.com/Linx92/bibllioteca-api-jenkinsfile-param.git']])
             }
         }
-    
     
         stage ('Restaurar dependencias'){
             steps {
