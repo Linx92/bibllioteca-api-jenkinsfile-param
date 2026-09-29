@@ -25,6 +25,12 @@ pipeline {
             defaultValue: false,
             description: "¿Desea desplegar en PRD?"
         )
+
+        choice(
+            name: "ENVIRONMENT",
+            choices: ["DEV", "QA", "PRD"],
+            description: "Seleccione el entorno de despliegue"
+        )
     }
 
     environment {
@@ -69,12 +75,18 @@ pipeline {
         }
 
         stage ('Deploy DEV') {
+            when{
+                expression{return params.ENVIRONMENT == 'DEV'}
+            }
             steps{
                 echo 'Despliegue Dev'
             }
         }
         
         stage ('Deploy PROD') {
+            when{
+                expression{return params.ENVIRONMENT == 'PRD' && params.DEPLOY_PRD}
+            }
             steps{
                 input message: '¿Autoriza la ejecución?'
                 echo 'Despliegue PROD'
