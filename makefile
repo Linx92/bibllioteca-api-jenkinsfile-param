@@ -1,5 +1,5 @@
 restore:
-	dotnet restore
+ dotnet restore
 
 build:
-	dotnet build --configuration Release
+ dotnet build --configuration Release
