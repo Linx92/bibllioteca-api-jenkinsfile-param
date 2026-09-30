@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     parameters {
         string(
             name:"BRANCH_NAME",
@@ -40,6 +44,9 @@ pipeline {
     stages {
         stage ('Clonar desde Github'){
             steps {
+
+                echo "Rama seleccionada: ${params.BRANCH_NAME}"
+                
                 checkout scmGit(branches: [[name: "*/${params.BRANCH_NAME}"]], extensions: [], userRemoteConfigs: [[credentialsId: '36d9b6ee-ebae-4d35-b11a-d6ada6a1d4a5', url: 'https://github.com/Linx92/bibllioteca-api-jenkinsfile-param.git']])
             }
         }
