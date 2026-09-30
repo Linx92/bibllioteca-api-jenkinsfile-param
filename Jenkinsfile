@@ -44,10 +44,18 @@ pipeline {
             }
         }
     
+        stage('Valida Makerfile'){
+            steps{
+                script{
+                    bat 'make --version'
+                }
+            }
+        }
+
         stage ('Restaurar dependencias'){
             steps {
                 script {
-                    bat 'dotnet restore'
+                    bat 'make restore'
                 }
             }
         }
@@ -58,7 +66,7 @@ pipeline {
             }
             steps {
                 script {
-                    bat 'dotnet build --configuration Release'
+                    bat 'make build'
                 }
             }
         }
