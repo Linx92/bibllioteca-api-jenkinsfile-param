@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(
             name:"BRANCH_NAME",
-            defaultValue: "main",
+            defaultValue: "develop",
             description: "Nombre de la rama a compilar"
         )
 
