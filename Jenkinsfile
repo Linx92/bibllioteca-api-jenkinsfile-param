@@ -5,7 +5,7 @@ pipeline{
             steps{
                 script{
                     dir('biblioteca-api-jenkins-remote'){
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/biblioteca-api-jenkins-remote.git', credentialsId: 'github-repo']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/bibllioteca-api-jenkinsfile-remote.git', credentialsId: 'github-repo']]])
                     }
                     def buildAndTest = load 'pipelines/buildandtest.groovy'
                     buildAndTest.call('biblioteca-api-jenkins-remote')
