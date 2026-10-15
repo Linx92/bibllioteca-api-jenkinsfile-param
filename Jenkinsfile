@@ -22,6 +22,7 @@ pipeline{
         stage('Publish'){
             steps{
                 dotnetpublish solution: 'BibliotecaApi.sln', configuration: 'Release', outputdir: 'publish'
+                archiveArtifacts artifacts: 'publish/**', fingerprint: true
             }
         }
     }
