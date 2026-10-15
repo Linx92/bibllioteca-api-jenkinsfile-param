@@ -9,6 +9,21 @@ pipeline{
                 dotnetrestore solution: 'BibliotecaApi.sln'
             }
         }
+        stage('Build'){
+            steps{
+                dotnetbuild solution: 'BibliotecaApi.sln', configuration: 'Release'
+            }
+        }
+        stage('Test'){
+            steps{
+                dotnettest solution: 'BibliotecaApi.sln', configuration:'Release'
+            }
+        }
+        stage('Publish'){
+            steps{
+                dotnetpublish solution: 'BibliotecaApi.sln', configuration: 'Release', outputdir: 'publish'
+            }
+        }
     }
     // stages{
     //     stage('Load remote pipeline'){
