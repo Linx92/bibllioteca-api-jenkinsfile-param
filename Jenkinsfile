@@ -30,8 +30,12 @@ pipeline{
             steps{
 
                 withCredentials([azureServicePrincipal('3f790d25-6b8a-4bdc-990b-d7236371470a')]) {
+                    bat 'whoami'
+                    bat 'hostname'
+                    bat 'echo %PATH%'
+                    bat 'where az'
                     bat 'az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%'
-                    bat 'az webapp deploy --resource-group jenkins-webapp-deploy --name test-jenkins-api --src-path publish --type zip'
+                    bat 'az webapp deploy --resource-group AZ-204-Linford --name test-jenkins-api --src-path publish --type zip'
                 }     
             }   
         }
